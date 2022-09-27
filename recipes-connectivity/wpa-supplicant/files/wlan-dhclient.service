@@ -1,0 +1,11 @@
+[Unit]
+Description=dhclient ipv4 request
+After=wpa_supplicant.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=udhcpc -i wlan0
+
+[Install]
+WantedBy=multi-user.target

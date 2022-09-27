@@ -1,0 +1,24 @@
+{
+  "_comment": "This a swupdate-job template",
+  "version": "1.0",
+  "steps": [
+    {
+      "action": {
+        "name": "SWUpdate image updater",
+        "type": "runHandler",
+        "input": {
+          "handler": "/etc/aws-iot-device-client/job-handlers/image-update.sh",
+          "args": [
+            "-s",
+            "${s3_update_image}",
+            "-i",
+            "/data/update.swu",
+            "-p",
+            "${partition}"
+          ]
+        }
+      }
+    }
+  ]
+}
+  

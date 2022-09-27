@@ -1,0 +1,60 @@
+{
+  "Parameters": {
+    "SerialNumber": {
+      "Type": "String"
+    },
+    "AWS::IoT::Certificate::Id": {
+      "Type": "String"
+    }
+  },
+  "Resources": {
+    "certificate": {
+      "Properties": {
+        "CertificateId": {
+          "Ref": "AWS::IoT::Certificate::Id"
+        },
+        "Status": "Active"
+      },
+      "Type": "AWS::IoT::Certificate"
+    },
+    "policy": {
+      "Properties": {
+        "PolicyDocument": "{\r\n  \"Version\": \"2012-10-17\",\r\n  \"Statement\": [\r\n    {\r\n      \"Effect\": \"Allow\",\r\n      \"Action\": \"iot:Connect\",\r\n      \"Resource\": \"arn:aws:iot:REGION:ACCOUNT_ID:client\/${iot:Connection.Thing.ThingName}\"\r\n    },\r\n    {\r\n      \"Effect\": \"Allow\",\r\n      \"Action\": [\r\n        \"iot:Publish\",\r\n        \"iot:Receive\"\r\n      ],\r\n      \"Resource\": \"arn:aws:iot:REGION:ACCOUNT_ID:topic\/$aws\/things\/${iot:Connection.Thing.ThingName}\/*\"\r\n    },\r\n    {\r\n      \"Effect\": \"Allow\",\r\n      \"Action\": \"iot:Subscribe\",\r\n      \"Resource\": \"arn:aws:iot:REGION:ACCOUNT_ID:topicfilter\/$aws\/things\/${iot:Connection.Thing.ThingName}\/*\"\r\n    },\r\n    {\r\n      \"Effect\": \"Allow\",\r\n      \"Action\": \"iot:Publish\",\r\n      \"Resource\": \"arn:aws:iot:REGION:ACCOUNT_ID:topic\/dc-pub-topic\"\r\n    },\r\n    {\r\n      \"Effect\": \"Allow\",\r\n      \"Action\": \"iot:Subscribe\",\r\n      \"Resource\": \"arn:aws:iot:REGION:ACCOUNT_ID:topicfilter\/dc-sub-topic\"\r\n    }\r\n  ]\r\n}\r\n"
+      },
+      "Type": "AWS::IoT::Policy"
+    },
+    "thing": {
+      "OverrideSettings": {
+        "AttributePayload": "MERGE",
+        "ThingGroups": "DO_NOTHING",
+        "ThingTypeName": "REPLACE"
+      },
+      "Properties": {
+        "AttributePayload": {
+          "machine" : "raspberrypi4",
+          "machine_rev" : "A",
+          "distro_name" : "aws-iot",
+          "distro_version" : "1.0.0",
+          "distro_codename" : "Viscous"
+        },
+        "ThingGroups": [
+          "prodUnicorn"
+        ],
+        "ThingName": {
+          "Fn::Join": [
+            "",
+            [
+              "rpi-unicorn_",
+              {
+                "Ref": "SerialNumber"
+              }
+            ]
+          ]
+        },
+        "ThingTypeName": "rpi"
+      },
+      "Type": "AWS::IoT::Thing"
+    }
+  }
+}
+
