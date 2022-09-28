@@ -43,7 +43,7 @@ the script in step 3 is a bit rough at this point.
 3. Create the fleet provisioning template using the script `scripts/fleet-provisioning/setup.sh`.
    ```
    cd fleet-provisioning
-   ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
+   export ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
    ./setup.sh arn:aws:iam::$ACCOUNT:role/IoTProvisioningRole
    ```
 
