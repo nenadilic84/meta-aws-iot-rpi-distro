@@ -4,11 +4,14 @@ if test $# != 1; then
     echo You need to pass in role arn for the role having the AWSIoTThingsRegistration managed policy attached.
     exit 1
 fi
+if [[ -z "$ACCOUNT_ID" ]]; then
+    echo "Please set the ACCOUNT_ID"
+    exit 1
+fi
 
 region=${region:-eu-west-1}
 profile=${profile:-default}
 std_awscli_args="--output text --region ${region} --profile ${profile}"
-ACCOUNT_ID=$(aws ${std_awscli_args} sts get-caller-identity --output text --query Account)
 
 source_policy=$(dirname $0)/fp-template-claim.json
 target_policy=/tmp/fp-template-claim.$$.json
