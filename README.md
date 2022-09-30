@@ -85,7 +85,7 @@ In case you are building this on an EC2 you can send it to s3 and download it on
 ```
 export YOCTO_IMAGE_S3_BUCKET=<your bucket>
 aws s3 cp $BBPATH/tmp/deploy/images/raspberrypi4/unicorn-image-raspberrypi4.wic.bz2 s3://$YOCTO_IMAGE_S3_BUCKET/unicorn-image-raspberrypi4.wic.bz2
-aws s3 cp $BBPATH/tmp/deploy/images/raspberrypi4/update-image.swu s3://$YOCTO_IMAGE_S3_BUCKET/update-image.swu
+aws s3 cp $BBPATH/tmp/deploy/images/raspberrypi4/update-image-raspberrypi4.swu s3://$YOCTO_IMAGE_S3_BUCKET/update-image-raspberrypi4.swu
 ```
 
 Write the image to sd card.
