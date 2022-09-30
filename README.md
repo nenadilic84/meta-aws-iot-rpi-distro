@@ -35,7 +35,7 @@ the script in step 3 is a bit rough at this point.
    policy at `scripts/fleet-provisioning/fp-policy.json`.
    ```
    cd scripts
-   ./create-credential.sh -t "unicorn-demo" -n "fp-plicy" -f "fleet-provisioning/fp-policy.json" -F
+   ./create-credential.sh -t "unicorn-demo" -n "fp-plicy" -f "fleet-provisioning/fp-policy.json"
    mv ../../volatile/unicorn-demo/unicorn-demo.crt.pem ../recipes-iot/aws-iot-device-client/files/cert.pem 
    mv ../../volatile/unicorn-demo/unicorn-demo.key.prv.pem ../recipes-iot/aws-iot-device-client/files/key.pem 
    ```
