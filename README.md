@@ -102,7 +102,7 @@ or in case this is done on a MAC OS
 ```
 aws s3 cp s3://$YOCTO_IMAGE_S3_BUCKET/unicorn-image-raspberrypi4.wic.bz2 ./
 bzip2 -d unicorn-image-raspberrypi4.wic.bz2
-sudo gdd if=unicorn-image-raspberrypi4.wic of=/dev/disk4 bs=1M iflag=fullblock conv=fsync status=progress
+sudo gdd if=unicorn-image-raspberrypi4.wic of=/dev/<disk> bs=1M iflag=fullblock conv=fsync status=progress
 ```
 
 
