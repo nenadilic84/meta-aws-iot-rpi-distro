@@ -75,10 +75,9 @@ aws --output text --query endpointAddress iot describe-endpoint --endpoint-type 
 Initialize the environment.
 
 ```bash
-cd $HOME/aws-iot-rpi-distro
-. ./layers/openembedded-core/oe-init-build-env
-MACHINE=raspberrypi4 bitbake unicorn-image
-MACHINE=raspberrypi4 bitbake update-image
+source poky/oe-init-build-env
+bitbake unicorn-image # build the a production image to be flashed on the SD card
+MACHINE=raspberrypi4 bitbake update-image # build a OTA image for later to be used with AWS IoT Jobs
 ```
 
 In case you are building this on an EC2 you can send it to s3 and download it on a PC from there.
