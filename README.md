@@ -84,7 +84,8 @@ MACHINE=raspberrypi4 bitbake update-image
 In case you are building this on an EC2 you can send it to s3 and download it on a PC from there.
 
 ```
-aws s3 cp $BBPATH/tmp/deploy/images/raspberrypi4/unicorn-image-raspberrypi4.wic.bz2 s3://<yocto image bucket>/unicorn-image-raspberrypi4.wic.bz2
+export YOCTO_IMAGE_S3_BUCKET=<your bucket>
+aws s3 cp $BBPATH/tmp/deploy/images/raspberrypi4/unicorn-image-raspberrypi4.wic.bz2 s3://$YOCTO_IMAGE_S3_BUCKET/unicorn-image-raspberrypi4.wic.bz2
 ```
 
 Write the image to sd card.
@@ -100,7 +101,9 @@ sudo dd if=$wic of=/dev/sda \
 or in case this is done on a MAC OS
 
 ```
-sudo gdd if=unicorn-image-raspberrypi4.wic.bz2 of=/dev/disk4 bs=1M iflag=fullblock conv=fsync status=progress
+aws s3 cp s3://$YOCTO_IMAGE_S3_BUCKET/unicorn-image-raspberrypi4.wic.bz2 ./
+bzip2 -d unicorn-image-raspberrypi4.wic.bz2
+sudo gdd if=unicorn-image-raspberrypi4.wic of=/dev/disk4 bs=1M iflag=fullblock conv=fsync status=progress
 ```
 
 
@@ -109,7 +112,11 @@ sudo gdd if=unicorn-image-raspberrypi4.wic.bz2 of=/dev/disk4 bs=1M iflag=fullblo
 Create an AWS IoT Job that will update the system using a template:
 
 ```
-jq -r '.steps[0].action.input.args[1] |= <presigned url>' jobs/swupdate-job-template.json > swupdate-job.json
+function urldecode() { : "${*//+/ }"; echo -e "${_//%/\\x}"; }
+PRESIGNED_URL=urldecode $(aws s3 presign s3://$YOCTO_IMAGE_S3_BUCKET/update-image-raspberrypi4.swu)
+PARTITION=alt
+
+jq -r '.steps[0].action.input.args[1] |= $PRESIGNED_URL' jobs/swupdate-job-template.json > swupdate-job.json
 jq -r '.steps[0].action.input.args[5] |= <parititon>' jobs/swupdate-job-template.json > swupdate-job.json
 
 aws iot create-job --job-id board_info --document file://swupdate-job.json --targets arn:aws:iot:<region>:<account>:thing/<thing name>
