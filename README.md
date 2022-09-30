@@ -77,7 +77,7 @@ Initialize the environment.
 ```bash
 source poky/oe-init-build-env
 bitbake unicorn-image # build the a production image to be flashed on the SD card
-MACHINE=raspberrypi4 bitbake update-image # build a OTA image for later to be used with AWS IoT Jobs
+bitbake update-image # build a OTA image for later to be used with AWS IoT Jobs
 ```
 
 In case you are building this on an EC2 you can send it to s3 and download it on a PC from there.
