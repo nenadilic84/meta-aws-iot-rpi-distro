@@ -116,7 +116,7 @@ PRESIGNED_URL=urldecode $(aws s3 presign s3://$YOCTO_IMAGE_S3_BUCKET/update-imag
 PARTITION=alt
 
 jq -r '.steps[0].action.input.args[1] |= $PRESIGNED_URL' jobs/swupdate-job-template.json > swupdate-job.json
-jq -r '.steps[0].action.input.args[5] |= $PARTITION' jobs/swupdate-job-template.json > swupdate-job.json
+jq -r '.steps[0].action.input.args[5] |= $PARTITION' jobs/swupdate-job.json > swupdate-job.json
 
 aws iot create-job --job-id board_info --document file://swupdate-job.json --targets arn:aws:iot:<region>:<account>:thing/<thing name>
             
