@@ -54,12 +54,12 @@ Initialize the environment.
 
 ```bash
 curl
-https://raw.githubusercontent.com/nenadilic84/meta-aws-iot-rpi-distro/main/scripts/env/aws-iot-rpi.sh | \
+https://raw.githubusercontent.com/nenadilic84/meta-aws-iot-rpi-distro/master/scripts/env/aws-iot-rpi.sh | \
   bash
 
 # add the layers
 curl
-https://raw.githubusercontent.com/nenadilic84/meta-aws-iot-rpi-distro/main/scripts/env/add-bb-layers.sh | \
+https://raw.githubusercontent.com/nenadilic84/meta-aws-iot-rpi-distro/master/scripts/env/add-bb-layers.sh | \
   bash
 ```
 
