@@ -85,10 +85,11 @@ aws --output text --query endpointAddress iot describe-endpoint --endpoint-type 
 Initialize the environment.
 
 ```bash
-
+# get the local.conf
+cp ../meta-aws-iot-rpi-distro/conf/local.conf ./conf/
 # move the certificates
-mv ../../recipes-iot/aws-iot-device-client/files/cert.pem ../recipes-iot/aws-iot-device-client/files/cert.pem 
-mv ../../recipes-iot/aws-iot-device-client/files/key.pem ../recipes-iot/aws-iot-device-client/files/key.pem 
+mv ../../recipes-iot/aws-iot-device-client/files/cert.pem ../meta-aws-iot-rpi-distro/recipes-iot/aws-iot-device-client/files/cert.pem 
+mv ../../recipes-iot/aws-iot-device-client/files/key.pem ../meta-aws-iot-rpi-distro/recipes-iot/aws-iot-device-client/files/key.pem 
 bitbake unicorn-image # build the a production image to be flashed on the SD card
 bitbake update-image # build a OTA image for later to be used with AWS IoT Jobs
 ```
