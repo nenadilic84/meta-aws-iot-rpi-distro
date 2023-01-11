@@ -57,6 +57,8 @@ curl
 https://raw.githubusercontent.com/nenadilic84/meta-aws-iot-rpi-distro/master/scripts/env/aws-iot-rpi.sh | \
   bash
 
+source poky/oe-init-build-env build
+
 # add the layers
 curl
 https://raw.githubusercontent.com/nenadilic84/meta-aws-iot-rpi-distro/master/scripts/env/add-bb-layers.sh | \
@@ -83,7 +85,6 @@ aws --output text --query endpointAddress iot describe-endpoint --endpoint-type 
 Initialize the environment.
 
 ```bash
-source poky/oe-init-build-env
 
 # move the certificates
 mv ../../recipes-iot/aws-iot-device-client/files/cert.pem ../recipes-iot/aws-iot-device-client/files/cert.pem 
