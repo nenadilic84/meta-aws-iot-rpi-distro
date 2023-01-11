@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+  <!-- remote servers to query -->
+  <remote name="yocto" fetch="https://git.yoctoproject.org/git/" />
+  <remote name="github" fetch="https://github.com/" />
+  <remote name="openembedded" fetch="https://git.openembedded.org/" />
+
+  <!-- defaults -->
+  <default remote="yocto" sync-j="4" revision="kirkstone"/>
+
+  <project name="poky" path="poky" />
+  <project name="meta-raspberrypi" path="meta-raspberrypi" />
+  <project name="meta-openembedded" remote="openembedded" path="meta-openembedded" />
+  <project name="sbabic/meta-swupdate" remote="github" path="meta-swupdate" />
+  <project name="aws4embeddedlinux/meta-aws" remote="github" path="meta-aws" />
+  <project name="nenadilic84/meta-aws-iot-rpi-distro" remote="github" revision="master" path="meta-aws-iot-rpi-distro" />
+
+</manifest>

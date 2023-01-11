@@ -56,6 +56,11 @@ Initialize the environment.
 curl
 https://raw.githubusercontent.com/nenadilic84/meta-aws-iot-rpi-distro/main/scripts/env/aws-iot-rpi.sh | \
   bash
+
+# add the layers
+curl
+https://raw.githubusercontent.com/nenadilic84/meta-aws-iot-rpi-distro/main/scripts/env/add-bb-layers.sh | \
+  bash
 ```
 
 Set in local.conf
@@ -63,6 +68,9 @@ Set in local.conf
 ```text
 DEMO_IOT_ENDPOINT = "<ENDPOINT>"`
 DEMO_THING_NAME="<thing name used for provisioning>"
+
+UNICORN_RPI_SSID = "<WIFI SSID>"
+UNICORN_RPI_PSK = "<PSK>"
 ```
 
 Where `<ENDPOINT>` is the value output from the following:
@@ -76,6 +84,10 @@ Initialize the environment.
 
 ```bash
 source poky/oe-init-build-env
+
+# move the certificates
+mv ../../recipes-iot/aws-iot-device-client/files/cert.pem ../recipes-iot/aws-iot-device-client/files/cert.pem 
+mv ../../recipes-iot/aws-iot-device-client/files/key.pem ../recipes-iot/aws-iot-device-client/files/key.pem 
 bitbake unicorn-image # build the a production image to be flashed on the SD card
 bitbake update-image # build a OTA image for later to be used with AWS IoT Jobs
 ```
