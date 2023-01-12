@@ -53,16 +53,13 @@ the script in step 3 is a bit rough at this point.
 Initialize the environment.
 
 ```bash
-curl
-https://raw.githubusercontent.com/nenadilic84/meta-aws-iot-rpi-distro/master/scripts/env/aws-iot-rpi.sh | \
-  bash
+scripts/env/aws-iot-rpi.sh
 
+cd layers
 source poky/oe-init-build-env build
 
 # add the layers
-curl
-https://raw.githubusercontent.com/nenadilic84/meta-aws-iot-rpi-distro/master/scripts/env/add-bb-layers.sh | \
-  bash
+../../scripts/env/add-bb-layers.sh 
 ```
 
 Set in local.conf
